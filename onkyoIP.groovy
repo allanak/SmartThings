@@ -16,7 +16,7 @@
 
 metadata {
 	definition (name: "onkyoIP", namespace: "allanak", author: "Allan Klein") {
-		capability "Switch"
+	capability "Switch"
         capability "Music Player"
         command "cable"
         command "stb"
@@ -25,7 +25,7 @@ metadata {
         command "aux"
         command "makeNetworkId", ["string","string"]
         command "z2on"
-		command "z2off"
+	command "z2off"
 }
 
 	simulator {
