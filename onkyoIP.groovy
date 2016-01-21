@@ -77,8 +77,9 @@ metadata {
         valueTile("currentSong", "device.trackDescription", inactiveLabel: true, height:1, width:3, decoration: "flat") {
 		state "default", label:'${currentValue}', backgroundColor:"#ffffff"
 		}
-	}
 */
+	}
+
 	
     main "switch"
     details(["switch","mute","cable","stb","pc","net","aux","levelSliderControl","zone2"])
