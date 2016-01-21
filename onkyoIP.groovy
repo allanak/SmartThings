@@ -1,8 +1,16 @@
 /**
- * Onkyo IP Control
+ *  Onkyo IP Control Device Type for SmartThings
  *  Allan Klein (@allanak)
  *  Originally based on: Mike Maxwell's code
  *
+ *  Usage:
+ *  1. Be sure you have enabled control of the receiver via the network under the settings on your receiver.
+ *  2. Add this code as a device handler in the SmartThings IDE
+ *  3. Create a device using OnkyoIP as the device handler using a hexadecimal representation of IP:port as the device network ID value
+ *  For example, a receiver at 192.168.1.222:60128 would have a device network ID of C0A801DE:EAE0
+ *  Note: Port 60128 is the default Onkyo eISCP port so you shouldn't need to change anything after the colon
+ *  4. Enjoy the new functionality of the SmartThings app
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License. You may obtain a copy of the License at:
  *
@@ -21,6 +29,7 @@
  * Zone 2 Mute: ZMTQSTN
  * Zone 2 Volume: ZVLQSTN
  * Zone 2 Input Selected: SLZQSTN
+ * ISCP commands were found at https://github.com/miracle2k/onkyo-eiscp/blob/master/eiscp-commands.yaml
  */
 
 metadata {
@@ -98,11 +107,11 @@ def parse(description) {
 }
 //device.deviceNetworkId should be writeable now..., and its not...
 def makeNetworkId(ipaddr, port) { 
-	 String hexIp = ipaddr.tokenize('.').collect {String.format('%02X', it.toInteger()) }.join() 
-     String hexPort = String.format('%04X', port.toInteger()) 
-    log.debug "The target device is configured as: ${hexIp}:${hexPort}" 
+	String hexIp = ipaddr.tokenize('.').collect {String.format('%02X', it.toInteger()) }.join() 
+	String hexPort = String.format('%04X', port.toInteger()) 
+	log.debug "The target device is configured as: ${hexIp}:${hexPort}" 
 	return "${hexIp}:${hexPort}" 
-}
+	}
 def updated() {
 	//device.deviceNetworkId = makeNetworkId(settings.deviceIP,settings.devicePort)	
 	}
@@ -127,17 +136,17 @@ def setLevel(vol){
 	if (vol < 0) vol = 0
 	else if( vol > 70) vol = 70
 	else {
-	sendEvent(name:"setLevel", value: vol)
-	String volhex = vol.bytes.encodeHex()
-	// Strip the first six zeroes of the hex encoded value because we send volume as 2 digit hex
-	volhex = volhex.replaceFirst("\\u0030{6}","")
-	log.debug "Converted volume $vol into hex: $volhex"
-	def msg = getEiscpMessage("MVL${volhex}")
-	log.debug "Setting volume to MVL${volhex}"
-	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN )
-	return ha
+		sendEvent(name:"setLevel", value: vol)
+		String volhex = vol.bytes.encodeHex()
+		// Strip the first six zeroes of the hex encoded value because we send volume as 2 digit hex
+		volhex = volhex.replaceFirst("\\u0030{6}","")
+		log.debug "Converted volume $vol into hex: $volhex"
+		def msg = getEiscpMessage("MVL${volhex}")
+		log.debug "Setting volume to MVL${volhex}"
+		def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN )
+		return ha
+		}
 	}
-}
 
 def on() {
 	log.info "Powering on receiver"
@@ -161,12 +170,14 @@ def cable() {
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
+
 def stb() {
 	log.info "Setting input to STB"
 	def msg = getEiscpMessage("SLI02")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
+
 def pc() {
 	log.info "Setting input to PC"
 	def msg = getEiscpMessage("SLI05")
