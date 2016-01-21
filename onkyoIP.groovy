@@ -12,6 +12,15 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  *
+ * Some future commands that might be useful to incorporate reading:
+ * Power Status: PWRQSTN
+ * Input Selected: SLIQSTN
+ * Volume Level: MVLQSTN (value in hex)
+ * Artist Name: NATQSTN
+ * Track Name: NTIQSTN
+ * Zone 2 Mute: ZMTQSTN
+ * Zone 2 Volume: ZVLQSTN
+ * Zone 2 Input Selected: SLZQSTN
  */
 
 metadata {
