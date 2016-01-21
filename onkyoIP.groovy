@@ -23,9 +23,9 @@ metadata {
         command "pc"
         command "net"
         command "aux"
-        command "makeNetworkId", ["string","string"]
         command "z2on"
 	command "z2off"
+        command "makeNetworkId", ["string","string"]
 }
 
 	simulator {
@@ -72,7 +72,8 @@ metadata {
 
 	
     main "switch"
-    details(["switch","mute","cable","stb","pc","net","aux","levelSliderControl","zone2","currentSong"])
+    details(["switch","mute","cable","stb","pc","net","aux","levelSliderControl","zone2"])
+    //Add currentSong to above once I can figure out how to get the QSTN commands parsed into artist/song titles
 }
 
 // parse events into attributes
