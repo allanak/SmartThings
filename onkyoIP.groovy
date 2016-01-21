@@ -73,12 +73,12 @@ metadata {
 			state "on", label:"Disable Zone 2", action:"z2off", icon:"st.custom.sonos.muted", backgroundColor:"#ffffff", nextState:"off"
         }
         
-        
+/*   Commenting this out as it doesn't work yet     
         valueTile("currentSong", "device.trackDescription", inactiveLabel: true, height:1, width:3, decoration: "flat") {
 		state "default", label:'${currentValue}', backgroundColor:"#ffffff"
 		}
 	}
-
+*/
 	
     main "switch"
     details(["switch","mute","cable","stb","pc","net","aux","levelSliderControl","zone2"])
