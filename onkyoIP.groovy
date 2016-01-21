@@ -54,7 +54,7 @@ metadata {
         	state "net", label: 'net', action: "net", icon:"st.Electronics.electronics2"
         }
         standardTile("aux", "device.switch", decoration: "flat"){
-        	state "aux", label: 'aux', action: "net", icon:"st.Electronics.electronics6"
+        	state "aux", label: 'aux', action: "aux", icon:"st.Electronics.electronics6"
         }
 		controlTile("levelSliderControl", "device.level", "slider", height: 1, width: 2, inactiveLabel: false, range:"(0..70)") {
 			state "level", label:'${currentValue}', action:"setLevel", backgroundColor:"#ffffff"
