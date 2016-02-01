@@ -116,7 +116,7 @@ def updated() {
 	//device.deviceNetworkId = makeNetworkId(settings.deviceIP,settings.devicePort)	
 	}
 def mute(){
-	log.info "Muting receiver"
+	log.debug "Muting receiver"
 	sendEvent(name: "switch", value: "muted")
 	def msg = getEiscpMessage("AMT01")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN )
@@ -124,7 +124,7 @@ def mute(){
 	}
 
 def unmute(){
-	log.info "Unmuting receiver"
+	log.debug "Unmuting receiver"
 	sendEvent(name: "switch", value: "unmuted")
 	def msg = getEiscpMessage("AMT00")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN )
@@ -132,7 +132,7 @@ def unmute(){
 	}
 
 def setLevel(vol){
-	log.info "Setting volume level $vol"
+	log.debug "Setting volume level $vol"
 	if (vol < 0) vol = 0
 	else if( vol > 70) vol = 70
 	else {
@@ -149,7 +149,7 @@ def setLevel(vol){
 	}
 
 def on() {
-	log.info "Powering on receiver"
+	log.debug "Powering on receiver"
 	sendEvent(name: "switch", value: "on")
 	def msg = getEiscpMessage("PWR01")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
@@ -157,7 +157,7 @@ def on() {
 	}
 
 def off() {
-	log.info "Powering off receiver"
+	log.debug "Powering off receiver"
 	sendEvent(name: "switch", value: "off")
 	def msg = getEiscpMessage("PWR00")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
@@ -165,47 +165,51 @@ def off() {
 	}
 
 def cable() {
-	log.info "Setting input to Cable"
+	log.debug "Setting input to Cable"
 	def msg = getEiscpMessage("SLI01")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
 
 def stb() {
-	log.info "Setting input to STB"
+	log.debug "Setting input to STB"
 	def msg = getEiscpMessage("SLI02")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
 
 def pc() {
-	log.info "Setting input to PC"
+	log.debug "Setting input to PC"
 	def msg = getEiscpMessage("SLI05")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
 
 def net() {
-	log.info "Setting input to NET"
+	log.debug "Setting input to NET"
 	def msg = getEiscpMessage("SLI2B")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
+	log.debug "Pressing play"
+	def msg2 = getEiscpMessage("NSTpxx")
+	def ha2 = new physicalgraph.device.HubAction(msg2,physicalgraph.device.Protocol.LAN)    
 	return ha
+    return ha2
 	}
 
 def aux() {
-	log.info "Setting input to AUX"
+	log.debug "Setting input to AUX"
 	def msg = getEiscpMessage("SLI03")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
 def z2on() {
-	log.info "Turning on Zone 2"
+	log.debug "Turning on Zone 2"
 	def msg = getEiscpMessage("ZWP01")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
 def z2off() {
-	log.info "Turning off Zone 2"
+	log.debug "Turning off Zone 2"
 	def msg = getEiscpMessage("ZPW00")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
