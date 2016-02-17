@@ -204,7 +204,7 @@ def aux() {
 	}
 def z2on() {
 	log.debug "Turning on Zone 2"
-	def msg = getEiscpMessage("ZWP01")
+	def msg = getEiscpMessage("ZPW01")
 	def ha = new physicalgraph.device.HubAction(msg,physicalgraph.device.Protocol.LAN)
 	return ha
 	}
